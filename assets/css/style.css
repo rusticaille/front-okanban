@@ -1,0 +1,90 @@
+html {
+  background-color: black;
+}
+
+body {
+  background-image: url('file:///var/www/html/s07/S07-oKanban-front-rusticaille/assets/images/background-space.jpg');
+  background-repeat: no-repeat;
+  background-color: black;
+  background-size: 100%;
+  height: 100vh;
+}
+
+h1{
+  color: #c49ba5 !important;
+}
+
+.card-lists {
+  overflow-x: scroll;
+}
+
+.button--delete-list {
+  padding: 10px !important;
+  
+}
+
+.control{
+  padding: 15px !important;
+}
+
+/* Lists style */
+.panel:hover {
+  background-color: rgba(107, 82, 82, 0.5);
+}
+
+.panel {
+  border-radius: 6px;
+}
+
+.panel-heading {
+  background-color: #c49ba5;
+}
+
+.panel-block {
+  background-color: black;
+}
+
+/* style du formulaire d'édition de listes et cartes */
+.edit-input {
+  padding: 5px !important;
+}
+
+/* cursor on labels */
+.new-label:hover {
+  cursor: pointer;
+}
+
+/* disposition des labels dans la modale */
+.new-label{
+  display: inline;
+}
+
+/* Sélection du label */
+.selected-label {
+  border: 3px solid #7B6167;
+}
+
+/* incone label sur les cartes */
+.label-text {
+  margin-right: 3px;
+}
+
+/* style input label dans deleteModal */
+.delete-modal-label {
+  width: 100px;
+  height: 30px;
+  border: none;
+  border-radius: 4px;
+  margin-top: 5px;
+}
+
+.button-delete-label {
+  width: 80px;
+  height: 30px;
+  margin-top: 5px;
+  margin-left: 5px;
+  background-color: crimson;
+  border: none;
+  color: white;
+  border-radius: 4px;
+}

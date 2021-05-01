@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>oKanban</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+    <link rel="stylesheet" href="./assets/css/style.css">
+    <script defer src="https://use.fontawesome.com/releases/v5.3.1/js/all.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
+</head>
+
+<body>
+    <section class="section ">
+        <div class="container">
+            <h1 class="title">
+                oKanban
+            </h1>
+            <div class="columns">
+
+                <div class="column is-full">
+                    <div class="card-lists columns"  id="sortableListsContainer">
+                        <!-- bouton ajout de list -->
+                        <div class="column">
+                            <button class="button is-primary" id="addListButton">
+                                <span class="icon is-small">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                                &nbsp; Ajouter une liste
+                            </button>
+                            <br>
+                            <br>
+                            <button class="button is-primary" id="deleteLabelButton">
+                                <span class="icon is-small">
+                                    <i class="fas fa-pencil-alt"></i>
+                                </span>
+                                &nbsp; Supprimer une catégorie
+                            </button>
+                        </div>
+                        <!--/ bouton ajout de list -->
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+    <!-- Modale ajout de liste -->
+    <div class="modal" id="addListModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter une liste</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input id="list-name-input" type="text" class="input" name="name" value="" placeholder="Nom de la liste">
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" type="submit">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+    <!-- Modale ajout de carte -->
+    <div class="modal" id="addCardModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form class="card-form" action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter une carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input id="card-name-input" type="text" class="input" name="title" value="" placeholder="Nom de la carte">
+                            <input type="hidden" name="list_id">
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" type="submit">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale ajout/remplacement de tag -->
+    <div class="modal" id="addLabelModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form class="label-form" action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Ajouter, remplacer ou supprimer une catégorie</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                            <label class="label">Ajouter un tag existant</label>
+                        <div class="control existing-labels">
+
+                        </div>
+                        <label class="label">Nom</label>
+                        <div class="control">
+                            <input id="label-name-input" type="text" class="input" name="name" value="" placeholder="Nom de la catégorie">
+                            <input type="hidden" name="card_id">
+                        </div>
+                        <label class="label">Couleur de fond</label>
+                        <div class="control">
+                            <input id="label-color-input" type="color" class="input" name="color" value="#ff0000">
+                        </div>
+                        <label class="label">Couleur du texte</label>
+                        <div class="control">
+                            <input type="radio" id="white-text" name="text_color"
+                                   value="#ffffff">
+                            <label for="white-text">Blanc</label>
+                            <input type="radio" id="black-text" name="text_color"
+                                    value="#000000">
+                            <label for="black-text">Noir</label>
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-success" type="submit">Save changes</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale suppression de tag -->
+    <div class="modal" id="deleteLabelModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form class="label-form" action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Supprimer une catégorie</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        <div class="control all-labels">
+
+                        </div>
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Template list -->
+    <template id="newList">
+            <div class="column is-one-quarter panel" data-list-id="B">
+                <div class="panel-heading">
+                    <div class="columns">
+                        <div class="column">
+                            <h2 class="has-text-white">A</h2>
+
+                            <form action="" method="POST" class="is-hidden">
+                                <input type="hidden" name="position" value="4">
+                                <div class="field has-addons">
+                                    <div class="control edit-input column is-8">
+                                        <input type="text" class="input is-small" name="name" value=""
+                                            placeholder="Nom de la liste">
+                                    </div>
+                                    <div class="control edit-input column is-4">
+                                        <button class="button is-small is-success">Valider</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="column is-narrow">
+                            <a href="#" class="is-pulled-right button--add-card">
+                                <span class="icon is-small has-text-white">
+                                    <i class="fas fa-plus"></i>
+                                </span>
+                            </a>
+                            <a href="#" class="button--delete-list">
+                                <span class="icon is-small has-text-white">
+                                    <i class="fas fa-trash-alt"></i>
+                                </span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-block is-block" id="sortableList">
+                </div>
+            </div>
+    </template>
+
+  <!-- Template card -->
+    <template id="newCard">
+        <div class="box" data-card-id="I">
+            <div class="columns is-full">
+                <div class="column is-6 label-column">
+
+                </div>
+                <div class="column is-6">
+                    <a href="#">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-pencil-alt"></i>
+                        </span>
+                    </a>
+                    <a href="#">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-trash-alt"></i>
+                        </span>
+                    </a>
+                    <a href="#">
+                        <span class="icon is-small has-text-primary">
+                            <i class="fas fa-tag"></i>
+                        </span>
+                    </a>
+                </div>
+            </div>
+            <div class="columns">
+                <div class="column is-full new-card-name"></div>
+
+                <form action="" method="POST" class="is-hidden">
+                    <div class="field has-addons">
+                         <div class="control colum is-8 edit-input">
+                            <input type="text" class="input is-small" name="title" value=""
+                                    placeholder="Nom de la carte">
+                        </div>
+                        <div class="control column is-4 edit-input">
+                            <button class="button is-small is-success">Valider</button>
+                        </div>
+                    </div>
+                </form>
+
+            </div>
+        </div>
+    </template>
+
+     <!-- Template label -->
+    <template id="newLabel">
+        <div class="new-label tag is-normal" data-label-id="1">
+            <p class="label-text"></p>
+            <span class="icon is-small has-text">
+                <i class="fas fa-times"></i>
+            </span>
+            <input id="hidden-card-id" type="hidden" value="card_id">
+        </div>
+    </template>
+
+    <!-- template span label -->
+    <template id="newLabelSpan">
+        <span class="icon is-small has-text">
+            <i class="fas fa-times"></i>
+        </span>
+    </template>
+
+    <!-- Modale suppression de carte -->
+    <div class="modal" id="deleteCardModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form class="card-form" action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Supprimer une carte</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        Êtes-vous sûr de vouloir supprimer cette carte ?
+                        <input class="modal-card-id" type="hidden" name="id">
+                        <input class="modal-list-id" type="hidden" name="list_id">
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-danger" type="submit">SUPPRIMER</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+     <!-- Modale suppression de list -->
+     <div class="modal" id="deleteListModal">
+        <div class="modal-background"></div>
+        <div class="modal-card">
+            <form class="card-form" action="" method="POST">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Supprimer une liste</p>
+                    <button class="delete close" type="button" aria-label="close"></button>
+                </header>
+                <section class="modal-card-body">
+                    <div class="field">
+                        Êtes-vous sûr de vouloir supprimer cette liste ?
+                        <input class="modal-card-id" type="hidden" name="id">
+                    </div>
+                </section>
+                <footer class="modal-card-foot">
+                    <button class="button is-danger" type="submit">SUPPRIMER</button>
+                    <button class="button close" type="button">Cancel</button>
+                </footer>
+            </form>
+        </div>
+    </div>
+
+    <!-- Chargement de mon fichier JS -->
+    <script src="./assets/js/app.js"></script>
+    <script src="./assets/js/list.js"></script>
+    <script src="./assets/js/card.js"></script>
+    <script src="./assets/js/label.js"></script>
+</body>
+
+</html>
