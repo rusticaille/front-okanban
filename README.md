@@ -5,6 +5,7 @@ Création de la partie front du projet Okanban: appli de gestion de projet à la
 Manipulation du DOM, à la dure...sans framework front.
 Utilisation du drag n drop avec Sortable js.
 Utilisation de bulma pour le CSS.
+Utilisation de templates html.
 l'API est ici : https://github.com/rusticaille/API-okanban
 
   ## Fonctionnalités
